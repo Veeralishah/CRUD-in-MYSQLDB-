@@ -5,7 +5,7 @@
 import MySQLdb as mdb
 import sys
 import warnings
-from config import con
+from db_config import con
 
 
 # CREATE A NEW TABLE
@@ -14,10 +14,14 @@ def createTable(con):
 
         cur = con.cursor()
         cur.execute("DROP TABLE IF EXISTS Citizen")
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
         cur.execute("CREATE TABLE Citizen(Id INT PRIMARY KEY AUTO_INCREMENT, Firstname VARCHAR(25),Lastname VARCHAR(25), City VARCHAR(25), State VARCHAR(25), Country VARCHAR(25));")
-        print 'Table created'
+        print 'Citizen Table created'
 
 # INSERT VALUES
+
+
 def insertTable(con):
     with con:
 
@@ -27,6 +31,7 @@ def insertTable(con):
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
                 cur.execute("CREATE TABLE IF NOT EXISTS Citizen(Id INT PRIMARY KEY AUTO_INCREMENT, Firstname VARCHAR(25),Lastname VARCHAR(25), City VARCHAR(25), State VARCHAR(25), Country VARCHAR(25));")
+                print 'Citizen Table created'
                 warnings.filterwarnings('ignore', 'unknown table')
 
             Id = 0
@@ -67,9 +72,14 @@ def updateRow(con):
             for row in rows:
                 print 'Table Data:', row["Id"], row["Firstname"], row["Lastname"], row["City"], row["State"], row["Country"]
             id = input("Enter ID for Update Record")
+            fname = raw_input('Enter First Name For Update record')
+            lname = raw_input('Enter Last Name For Update record')
             city = raw_input('Enter City Name For Update record')
-            cur.execute("UPDATE Citizen SET City = %s WHERE Id = %s",
-                        ("city", "id"))
+            state = raw_input('Enter State Name For Update record')
+            con = raw_input('Enter Country Name For Update record')
+            cur.execute("UPDATE Citizen SET Firstname = %s, Lastname = %s, City = %s, State = %s, Country = %s  WHERE Id = %s",
+                        (fname, lname, city, state, con, id))
+
             print "Number of rows updated:",  cur.rowcount
             if cur.rowcount == 0:
                 print 'Record Not Updated'
@@ -77,6 +87,8 @@ def updateRow(con):
             print 'ID Not Exist '
 
  # DELETE ROW
+
+
 def deleteRow(con):
     with con:
 
@@ -88,7 +100,7 @@ def deleteRow(con):
             for row in rows:
                 print 'Table Data:', row["Id"], row["Firstname"], row["Lastname"], row["City"], row["State"], row["Country"]
 
-            id = input("Enter ID for Delete Record")
+            id = raw_input("Enter ID for Delete Record")
             cur.execute("DELETE FROM Citizen WHERE Id = %s", id)
             print "Number of rows deleted:", cur.rowcount
 
