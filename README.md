@@ -1,10 +1,6 @@
 # CRUD-in-MYSQLDB-
 Dynamically CRUD operation in MYSQLDB using Python Script
 
-# Project Title
-
-CRUD Opeartions Working Dynamically in MYSQL Database using Python Script.
-
 ## Getting Started
 
 First, You Can run User file, Thne User Input for What Operation do like Create table, Update Record, Delete Record & Show Table Data.
