@@ -7,7 +7,7 @@ import warnings
 
 
 def createdb_mysql():
-    db = mdb.connect(host="localhost", user="root", passwd="Drc@1234")
+    db = mdb.connect(host="localhost", user="root", passwd="PASSWORD")
     db1 = db.cursor()
     with warnings.catch_warnings():
         warnings.simplefilter('ignore')
@@ -19,7 +19,7 @@ def createdb_mysql():
 
 
 try:
-    con = mdb.connect('localhost', 'root', 'Drc@1234', 'testdb')
+    con = mdb.connect('localhost', 'root', 'PASSWORD', 'testdb')
     cur = con.cursor()
     cur.execute("SELECT VERSION()")
     ver = cur.fetchone()
