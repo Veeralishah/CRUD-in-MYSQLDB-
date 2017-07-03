@@ -1,7 +1,7 @@
 #-*- coding: utf8 -*-
 
-from config import con
-from crud import *
+from db_config import con
+from db_query import *
 import sys
 import MySQLdb as mdb
 
@@ -20,14 +20,19 @@ def choice():
     ch = input("Enter Your Choice")
     if ch == 1:
         createTable(con)
+        choice()
     elif ch == 2:
         insertTable(con)
+        choice()
     elif ch == 3:
         retrieveTable(con)
+        choice()
     elif ch == 4:
         updateRow(con)
+        choice()
     elif ch == 5:
         deleteRow(con)
+        choice()
     elif ch == 6:
         exit()
         pass
@@ -35,3 +40,4 @@ def choice():
         print "Please Enter Valid Input"
 
 choice()
+
